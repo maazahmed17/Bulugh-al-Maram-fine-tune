@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+#ignore the models 
+models/
+#ignore the data directory
+data/
+#ignore the python cache
+__pycache__/
+#ignore MLruns
+mlruns/
+
