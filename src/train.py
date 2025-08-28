@@ -88,9 +88,9 @@ tokenizer.padding_side = "right"
 # LoRA (Low-Rank Adaptation) configuration
 # Instead of training all 2.7B parameters, we only train small adapters (~0.28%)
 lora_config = LoraConfig(
-    r=16,                                    # Rank: controls adapter size (16 is good balance)
-    lora_alpha=32,                           # Scaling factor (typically 2x the rank)
-    target_modules=["q_proj", "k_proj", "v_proj"], # Apply to attention layers only
+    r=64,                                    # Rank: controls adapter size (16 is good balance)
+    lora_alpha=128,                           # Scaling factor (typically 2x the rank)
+    target_modules=["q_proj", "k_proj", "v_proj","dense"], # Apply to attention layers only
     lora_dropout=0.05,                       # Dropout rate for adapters (prevents overfitting)
     bias="none",                             # Don't adapt bias parameters
     task_type="CAUSAL_LM",                   # Task type: Causal Language Modeling
@@ -117,7 +117,7 @@ training_args = SFTConfig(
     logging_steps=10,                             # Log training metrics every 10 steps
     
     # === Training Schedule ===
-    num_train_epochs=1,                 # Train for 1 full epoch
+    num_train_epochs=5,                 # Train for 1 full epoch
     max_steps=100,                      # Limit to 100 steps for quick testing
     save_strategy="steps",              # Save checkpoints based on steps
     save_steps=50,                      # Save checkpoint every 50 steps
@@ -128,8 +128,11 @@ training_args = SFTConfig(
     dataloader_drop_last=True,          # Drop incomplete batches (avoids errors)
     
     # === Learning Rate ===
-    learning_rate=2e-4,                 # Conservative learning rate (don't break pre-trained knowledge)
+    learning_rate=3e-4,                 # Conservative learning rate (don't break pre-trained knowledge)
     
+    warmup_ratio=0.03,  # Add warmup to avoid early instability
+    lr_scheduler_type="cosine",
+
     # === Performance Optimizations ===
     fp16=True,                          # Use 16-bit floating point (saves memory)
     report_to=None,                     # Don't log to wandb/tensorboard
