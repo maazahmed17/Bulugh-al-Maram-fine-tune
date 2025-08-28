@@ -1,4 +1,5 @@
 # In source/load_model.py
+# This file is to give you the idea on how to load the model from hugging faces
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
