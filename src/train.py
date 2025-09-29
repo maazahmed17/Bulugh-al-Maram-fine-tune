@@ -6,7 +6,7 @@
 # - LoRA adapters (Parameter-Efficient Fine-Tuning)
 # - TRL's SFTTrainer (Supervised Fine-Tuning Trainer)
 #
-# Hardware Requirements: RTX 4060 (8GB VRAM) or similar
+# Hardware Requirements: RTX 4060 (8GB VRAM) or similar, if you have atleast 6gb of Vram is also fine.
 # ==============================================================================
 
 import torch
